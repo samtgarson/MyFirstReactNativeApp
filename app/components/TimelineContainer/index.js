@@ -1,6 +1,6 @@
 /*
  *
- * HomeContainer
+ * TimelineContainer
  *
  */
 
@@ -10,21 +10,20 @@ import styles from './styles';
 
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { selectHomeContainer } from './reducer';
+import { selectTimelineContainer } from './reducer';
+import Timeline from '../Timeline'
 const { View, Text } = ReactNative;
 
-class HomeContainer extends Component {
+class TimelineContainer extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>HomeContainer</Text>
-      </View>
+      <Timeline events={this.props.events} />
     );
   }
 }
 
-HomeContainer.propTypes = {
-  homeContainer: React.PropTypes.object.isRequired,
+TimelineContainer.propTypes = {
+  events: React.PropTypes.object.isRequired,
   dispatch: React.PropTypes.func.isRequired,
 };
 
@@ -35,6 +34,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  createSelector(selectHomeContainer, (homeContainer) => ({ homeContainer })),
+  createSelector(selectTimelineContainer, (timelineContainer) => ({ events: timelineContainer })),
   mapDispatchToProps
-)(HomeContainer);
+)(TimelineContainer);

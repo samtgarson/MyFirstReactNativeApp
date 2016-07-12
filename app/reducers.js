@@ -1,9 +1,10 @@
-import homeContainer from './components/HomeContainer/reducer';
+import timelineContainer from './components/TimelineContainer/reducer';
 import { combineReducers } from 'redux-immutable';
 
 const applicationReducers = {
-  homeContainer
+  timelineContainer
 };
+
 export default function createReducer() {
   return combineReducers(applicationReducers);
 }
