@@ -1,13 +1,11 @@
-import { StyleSheet, Dimensions } from 'react-native';
-
-const {height, width} = Dimensions.get('window')
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   event: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    width: Math.min(height, width),
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingVertical: 60
   }
 });

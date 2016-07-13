@@ -11,25 +11,29 @@ import styles from './styles';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { selectTimelineContainer } from './reducer';
+import { addTimelineEvent } from './actions'
 import Timeline from '../Timeline'
 const { View, Text } = ReactNative;
 
 class TimelineContainer extends Component {
   render() {
     return (
-      <Timeline events={this.props.events} />
+      <Timeline addTimelineEvent={this.props.addTimelineEvent} events={this.props.events} />
     );
   }
 }
 
 TimelineContainer.propTypes = {
   events: React.PropTypes.object.isRequired,
-  dispatch: React.PropTypes.func.isRequired,
+  addTimelineEvent: React.PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    addTimelineEvent: () => {
+      console.log('adding!')
+      dispatch(addTimelineEvent())
+    },
   };
 }
 

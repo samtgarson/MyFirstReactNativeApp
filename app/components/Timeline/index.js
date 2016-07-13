@@ -10,21 +10,31 @@ import InvertibleScrollView from 'react-native-invertible-scroll-view';
 import TimelineEvent from '../TimelineEvent'
 import styles from './styles';
 
-const { View, ListView, Text } = ReactNative;
+const { View, ListView, Text, Dimensions, RefreshControl } = ReactNative;
 
 const _renderRow = (row) => (
   <TimelineEvent {...row} />
 )
 
-const Timeline = ({events}) => {
-  var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id});
+const _renderHeader = () => (
+  <Text>Hidden!</Text>
+)
+
+const Timeline = ({events, addTimelineEvent}) => {
+  const dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id});
+  const scrollProps = {
+    showsHorizontalScrollIndicator: false,
+    showsVerticalScrollIndicator: false
+  }
   return (
     <ListView
-      horizontal={true}
-      renderScrollComponent={props => <InvertibleScrollView {...props} inverted />}
-      dataSource={ds.cloneWithRows(events.toJS())}
+      horizontal={false}
+      // renderScrollComponent={scrollProps}
+      dataSource={dataSource.cloneWithRows(events.toJS())}
       renderRow={_renderRow}
+      renderHeader={_renderHeader}
       styles={styles.timeline}
+      contentOffset={{x: 0, y: 20}}
     />
   )
 }
