@@ -31,7 +31,6 @@ TimelineContainer.propTypes = {
 function mapDispatchToProps(dispatch) {
   return {
     addTimelineEvent: () => {
-      console.log('adding!')
       dispatch(addTimelineEvent())
     },
   };
