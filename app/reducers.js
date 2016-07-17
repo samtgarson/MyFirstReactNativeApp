@@ -1,8 +1,8 @@
-import timelineContainer from './components/TimelineContainer/reducer';
+import EventsReducer from './components/Events/reducer';
 import { combineReducers } from 'redux-immutable';
 
 const applicationReducers = {
-  timelineContainer
+  events: EventsReducer
 };
 
 export default function createReducer() {

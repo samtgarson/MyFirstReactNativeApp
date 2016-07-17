@@ -1,11 +1,25 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  event: {
+  container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 60
+    overflow: 'hidden',
+    backgroundColor: 'rgb(207,216,220)'
+  },
+  scroll: {
+    alignSelf: 'stretch',
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  event: {
+    backgroundColor: 'white',
+    flex: 1,
+    flexDirection: 'column',
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });

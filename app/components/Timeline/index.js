@@ -1,11 +1,5 @@
-/*
- *
- * Timeline
- *
- */
-
 import ReactNative from 'react-native';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import InvertibleScrollView from 'react-native-invertible-scroll-view';
 import TimelineEvent from '../TimelineEvent'
 import styles from './styles';
@@ -22,10 +16,13 @@ const {
 class Timeline extends Component {
   constructor (props) {
     super(props)
+    console.log(props)
     this.state = {
       scrollOffset: new Animated.Value(0),
       releaseToAdd: false
     }
+
+    this.dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id});
   }
 
   componentWillMount () {
@@ -54,33 +51,28 @@ class Timeline extends Component {
   }
   
   _renderRow (row) {
-    return row.newItem ? this.header() : (<TimelineEvent {...row} />)
+    return (<TimelineEvent hideEvent={() => {this.props.hideTimelineEvent(row.id)}} {...row} />)
   }
 
-  handleRelease (event, action) {
+  handleRelease (event) {
     if (this.state.releaseToAdd) {
-      action()
+      this.props.addTimelineEvent()
     }
   }
 
-  generateData() {
-    const dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id});
-    var events = this.props.events.toJS()
-    return dataSource.cloneWithRows(events)
-  }
-
   render () {
+    const {events} = this.props
+
     const listProps = {
-      showsHorizontalScrollIndicator: false,
       showsVerticalScrollIndicator: false,
       onScroll: Animated.event(
         [{nativeEvent: {contentOffset: {y: this.state.scrollOffset}}}]
       ),
-      scrollEventThrottle: 12,
-      onTouchEnd: (e) => { this.handleRelease(e, this.props.addTimelineEvent) },
-      horizontal: false,
-      dataSource: this.generateData(),
+      scrollEventThrottle: 16,
+      onTouchEnd: this.handleRelease.bind(this),
+      dataSource: this.dataSource.cloneWithRows(events),
       renderRow: this._renderRow.bind(this),
+      enableEmptySections: true,
       styles: styles.timeline,
       contentContainerStyles: styles.container
     }
@@ -93,4 +85,10 @@ class Timeline extends Component {
   }
 }
 
-export default Timeline;
+Timeline.propTypes = {
+  events: PropTypes.array.isRequired,
+  addTimelineEvent: PropTypes.func.isRequired,
+  hideTimelineEvent: PropTypes.func.isRequired
+};
+
+export default Timeline

@@ -1,0 +1,3 @@
+export const ADD_TIMELINE_EVENT = 'app/Timeline/ADD_TIMELINE_EVENT';
+export const HIDE_TIMELINE_EVENT = 'app/Timeline/HIDE_TIMELINE_EVENT';
+export const SET_TO_HIDE_TIMELINE_EVENT = 'app/Timeline/SET_TO_HIDE_TIMELINE_EVENT';
